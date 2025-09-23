@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { ChevronDown, Download, Play } from "lucide-react"
 
 const HeroSection = () => {
-  const [displayText, setDisplayText] = useState("")
+  const [displayText, setDisplayText] = useState("Full Stack Developer") // Set fallback text immediately
   const fullText = "Full Stack Developer"
 
   useEffect(() => {
@@ -33,56 +33,23 @@ const HeroSection = () => {
     <section className="min-h-screen relative overflow-hidden">
       {/* Enhanced Background - Removed 3D temporarily for debugging */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
-        {/* Animated orbs */}
-        <motion.div
-          className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-accent/20 to-primary/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-        />
+        {/* Simplified animated orbs for better performance */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-accent/10 to-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
       
-      {/* Layered background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 z-5">
+      {/* Simplified background effects for better performance */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-secondary/3 to-accent/3 z-5">
         <div className="absolute inset-0">
-          {[...Array(30)].map((_, i) => (
-            <motion.div
+          {[...Array(12)].map((_, i) => (
+            <div
               key={i}
-              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              className="absolute w-1 h-1 bg-primary/20 rounded-full animate-pulse floating-particle"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -20, 0],
-                x: [0, Math.random() * 20 - 10, 0],
-                scale: [1, 1.5, 1],
-                opacity: [0.3, 1, 0.3],
-              }}
-              transition={{
-                duration: 8 + Math.random() * 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: Math.random() * 8,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${4 + Math.random() * 4}s`,
               }}
             />
           ))}
@@ -125,13 +92,20 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="responsive-text-hero font-bold text-balance"
+                className="responsive-text-hero font-bold text-balance text-base-content"
               >
-                <span className="gradient-text">{displayText}</span>
+                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-gradient-x" style={{
+                  // Fallback styling for browsers that don't support bg-clip-text
+                  color: displayText ? 'transparent' : 'var(--primary)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: displayText ? 'transparent' : 'var(--primary)'
+                }}>
+                  {displayText || "Full Stack Developer"}
+                </span>
                 <motion.span
                   animate={{ opacity: [1, 0, 1] }}
                   transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1 }}
-                  className="text-primary"
+                  className="text-primary ml-1"
                 >
                   |
                 </motion.span>
@@ -154,15 +128,9 @@ const HeroSection = () => {
               transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
               className="relative"
             >
-              {/* Background glow effects */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-2xl blur-lg opacity-50"></div>
-              
-              {/* Floating decorative elements */}
-              <div className="absolute -top-8 -left-8 w-4 h-4 bg-primary/30 rounded-full blur-sm floating-particle"></div>
-              <div className="absolute -top-4 -right-6 w-3 h-3 bg-secondary/40 rounded-full blur-sm floating-particle" style={{ animationDelay: '2s' }}></div>
-              <div className="absolute -bottom-6 -left-4 w-5 h-5 bg-accent/25 rounded-full blur-sm floating-particle" style={{ animationDelay: '4s' }}></div>
-              <div className="absolute -bottom-8 -right-8 w-2 h-2 bg-primary/50 rounded-full blur-sm floating-particle" style={{ animationDelay: '6s' }}></div>
+              {/* Simplified background glow effects */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-3xl blur-xl opacity-30"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 rounded-2xl blur-lg opacity-50"></div>
               
               <div className="relative bg-gradient-to-br from-base-100/10 to-base-100/5 backdrop-blur-md rounded-2xl border border-white/20 p-6 space-y-6">
                 {/* Primary CTA Button - Enhanced */}
@@ -436,12 +404,12 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-[500px] lg:h-[600px] rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 shadow-2xl"
           >
-            {/* Animated Background */}
+            {/* Simplified Background */}
             <div className="absolute inset-0">
-              <div className="absolute top-20 left-20 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute top-40 right-16 w-24 h-24 bg-secondary/30 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
-              <div className="absolute bottom-32 left-12 w-28 h-28 bg-accent/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-              <div className="absolute bottom-20 right-20 w-20 h-20 bg-primary/25 rounded-full blur-xl animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              <div className="absolute top-20 left-20 w-32 h-32 bg-primary/10 rounded-full blur-3xl opacity-60"></div>
+              <div className="absolute top-40 right-16 w-24 h-24 bg-secondary/15 rounded-full blur-2xl opacity-40"></div>
+              <div className="absolute bottom-32 left-12 w-28 h-28 bg-accent/10 rounded-full blur-3xl opacity-50"></div>
+              <div className="absolute bottom-20 right-20 w-20 h-20 bg-primary/15 rounded-full blur-xl opacity-45"></div>
             </div>
             
             {/* Floating Elements */}
