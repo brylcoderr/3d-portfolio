@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: "Full Stack Developer Portfolio | 5+ Years Experience",
   description:
     "Professional Full Stack Developer with over 5 years of experience in designing, developing, and deploying dynamic web solutions. Specializing in modern web technologies, APIs, and scalable applications.",
-  generator: "v0.app",
   keywords: "Full Stack Developer, Web Development, React, Node.js, APIs, Database Design, Frontend, Backend",
 }
 
